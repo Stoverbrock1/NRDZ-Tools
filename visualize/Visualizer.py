@@ -102,6 +102,7 @@ class dataManager:
             sortF += [unsortF[eachind]]
             unsortT[eachind] = np.nan
         print(sortT)
+        print("function was called")
         print(sortF)
         return [[sortT], [sortF]]
 
