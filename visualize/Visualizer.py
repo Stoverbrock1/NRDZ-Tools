@@ -162,7 +162,7 @@ if __name__ == "__main__":
         if (flags['v']):
             data.plot_spectrogram(flags['w'])
 
-    if (data.mode == 'cadences'):
+    if (data.mode == 'cadence'):
         if (flags['w']):
             data.generate_cadences(flags['w'])
         if (flags['v']):
