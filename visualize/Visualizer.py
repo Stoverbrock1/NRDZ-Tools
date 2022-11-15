@@ -44,17 +44,32 @@ class dataManager:
         self.tf = tf
         self.fi = fi
         self.ff = ff
-        self.dataPath = BASE_PATH + SENSOR_PATH[sensor.upper()] + BRANCH_PATH
+        self.dataPath = BASE_PATH + SENSOR_PATH[sensor.upper()]
 
     def verify_parameters(self):
         """ Returns True if all parameters/arguments are valid """
         verified = True
-        print("All parameters valid")
+        if ((self.mode not in valid_modes) or (self.sensor not in valid_sensors)):
+            verified = False
+
+        try:
+            float(self.dt)
+            float(self.df)
+            float(self.ti)
+            float(self.tf)
+            float(self.fi)
+            float(self.ff)
+        except:
+            verified = False
+
+        if (verified):
+            print("All parameters valid")
+
+        else:
+            print("Not all parameters valid")
+
         return verified
 
-    def sort_scan(self, save=False):
-        """ Returns frequency scan vs time """
-        return 0
 
     def generate_spectrogram(self, save=False):
         """ Returns spectrogram data """
@@ -66,7 +81,29 @@ class dataManager:
 
     def generate_cadences(self, save=False):
         """ Returns sweep cadence data """
-        return 0
+        tuples = []
+        date = '0901'
+        for directory in os.listdir(self.dataPath):
+            if directory.isnumeric():
+                for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
+                    if (file != "outputs"):
+                        yearInd = file.index('D2022')
+                        if (file[yearInd + 5: yearInd+9] == date):
+                            indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60.
+                            tuples += [(indTime, float(directory))]
+
+        sortT = [x[0] for x in tuples]
+        unsortT = [x[0] for x in tuples]
+        sortT.sort()
+        unsortF = [x[1] for x in tuples]
+        sortF = []
+        for each in sortT:
+            eachind = unsortT.index(each)
+            sortF += [unsortF[eachind]]
+            unsortT[eachind] = np.nan
+        print(sortT)
+        print(sortF)
+        return [[sortT], [sortF]]
 
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
@@ -79,8 +116,6 @@ class dataManager:
     def plot_means(self, save=False):
         """ Plots means given this object's specified frequency/time bins """
         return 0
-
-
 
 
 if __name__ == "__main__":
@@ -106,12 +141,13 @@ if __name__ == "__main__":
             print("Please provide valid arguments")
             exit()
 
+
         pInd += 1
 
     data = dataManager(params['sensor'], params['mode'], params['dt'], params['df'], params['ti'], params['tf'], params['fi'], params['ff'])
     print("SENSOR: " + data.sensor, "MODE: " + data.mode, "dt: " + str(data.dt), "df: " + str(data.df), "ti: " + str(data.ti), "tf: "+ str(data.tf), "fi: "+ str(data.fi), "ff: "+ str(data.ff))
 
-    if (!data.verify_parameters()):
+    if (data.verify_parameters() == False):
         exit()
 
     if (data.mode == 'stats'):
