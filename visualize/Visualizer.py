@@ -20,7 +20,7 @@ BASE_PATH = '/mnt/datab-netStorage-1G/data/'
 SENSOR_PATH = {'CHIME':'', 'GATE':'HCRO-NRDZ-GATE/40.8169N121.4677W/hcro-rpi-002/32274CF/', 'NORTH':'',
     'NORTH-1740':'', 'ROOFTOP':'HCRO-NRDZ-Rooftop/40.8169N121.4677W/hcro-rpi-001/3227508/',
     'WEST-740':'HCRO-NRDZ-WEST-740/40.8169N121.4677W/hcro-rpi-004/323E369/'}
-BRANCH_PATH = '20/10/1/'
+BRANCH_PATH = '/20/10/1/'
 
 """
 #################################################################################################################
