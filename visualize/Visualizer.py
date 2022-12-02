@@ -102,9 +102,9 @@ class dataManager:
             eachind = unsortT.index(each)
             sortF += [unsortF[eachind]]
             unsortT[eachind] = np.nan
-        print(sortT)
-        print("function was called")
-        print(sortF)
+        #print(sortT)
+        #print("function was called")
+        #print(sortF)
         return [[sortT], [sortF]]
 
     def plot_cadences(self, save=False):
