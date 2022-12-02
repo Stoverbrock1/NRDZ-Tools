@@ -109,7 +109,7 @@ class dataManager:
 
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
-        times, freqs = self.plot_cadences(save)
+        times, freqs = self.generate_cadences(save)
         plt.plot(times, freqs)
         return 0
 
