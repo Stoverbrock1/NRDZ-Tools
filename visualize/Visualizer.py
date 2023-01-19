@@ -8,12 +8,17 @@ import os
 WRITE_DATA = False # -w, -W
 VISUALIZE = True # -v, -V
 MODE = 'stats' # --mode=...
-dt = .5 # In seconds; --dt=...
-df = 1 # In MHz; --df=...
+
+### Maybe I'll come up with functionality for custom binning wrt stats mode,
+### for now it's just df=20 MHz & dt=1 sec
+#dt = .5 # In seconds; --dt=...
+#df = 1 # In MHz; --df=...
+
 Fi = 0 # In MHz; --fi=...
 Ff = 1400 # In MHz; --ff=...
-Ti = '0901T1203'
-Tf = '0901T1250'
+Ti = '0901T1203' # Must use this format - date followed by time separated by T; --ti=...
+numPulse = 10 # An integer, number of sweeps/pulses you want plotted etc
+#Tf = '0901T1250' # --tf=...
 SENSOR = 'gate' # --sensor=...
 
 BASE_PATH = '/mnt/datab-netStorage-1G/data/'
@@ -83,13 +88,16 @@ class dataManager:
     def generate_cadences(self, save=False):
         """ Returns sweep cadence data """
         tuples = []
-        date = '0901'
+        date_i = self.ti[:4]
+        date_f = self.tf[:4]
+        time_i = self.ti[5:]
+        time_f = self.tf[5:]
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
                 for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
                     if (file != "outputs"):
                         yearInd = file.index('D2022')
-                        if (file[yearInd + 5: yearInd+9] == date):
+                        if (file[yearInd + 5: yearInd+9] == date_i ):
                             indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60.
                             tuples += [(indTime, float(directory))]
 
