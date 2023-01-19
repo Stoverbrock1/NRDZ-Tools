@@ -85,17 +85,16 @@ class dataManager:
         """ Returns sweep cadence data """
         tuples = []
         date_i = self.ti[:4]
-        date_f = self.tf[:4]
         time_i = self.ti[5:]
-        time_f = self.tf[5:]
+
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
                 for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
                     if (file != "outputs"):
-                        yearInd = file.index('D2022')
+                        yearInd = file.index('D20') + 2
                         if (file[yearInd + 5: yearInd+9] == date_i ):
                             indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60.
-                            tuples += [(indTime, float(directory))]
+                            tuples = tuples + [(indTime, float(directory))]
 
         sortT = [x[0] for x in tuples]
         unsortT = [x[0] for x in tuples]
