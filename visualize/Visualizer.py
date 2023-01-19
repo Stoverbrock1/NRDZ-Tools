@@ -17,7 +17,7 @@ MODE = 'stats' # --mode=...
 Fi = 0 # In MHz; --fi=...
 Ff = 1400 # In MHz; --ff=...
 Ti = '0901T1203' # Must use this format - date followed by time separated by T; --ti=...
-numPulse = 10 # An integer, number of sweeps/pulses you want plotted etc
+N = 10 # An integer, number of sweeps/pulses you want plotted etc
 #Tf = '0901T1250' # --tf=...
 SENSOR = 'gate' # --sensor=...
 
@@ -32,7 +32,7 @@ BRANCH_PATH = '/20/10/1/'
 #################################################################################################################
 """
 
-params = {"sensor":SENSOR, "mode":MODE, "dt":dt, "df":df, "fi":Fi, "ff":Ff, "ti":Ti, "tf":Tf}
+params = {"sensor":SENSOR, "mode":MODE, "fi":Fi, "ff":Ff, "ti":Ti, "n":N}
 flags = {"v":VISUALIZE, "w":WRITE_DATA}
 valid_sensors = ["chime", "gate", "rooftop", "north-1740", "west-740", "north"]
 valid_modes = ["stats", "power", "cadence"]
@@ -41,13 +41,11 @@ valid_modes = ["stats", "power", "cadence"]
 
 
 class dataManager:
-    def __init__(self, sensor=SENSOR, mode=MODE, dT=dt, dF=df, ti=Ti, tf=Tf, fi=Fi, ff=Ff):
+    def __init__(self, sensor=SENSOR, mode=MODE, ti=Ti, n=N, fi=Fi, ff=Ff):
         self.sensor = sensor
         self.mode = mode
-        self.dt = dT
-        self.df = dF
         self.ti = ti
-        self.tf = tf
+        self.N = n
         self.fi = fi
         self.ff = ff
         self.dataPath = BASE_PATH + SENSOR_PATH[sensor.upper()]
@@ -59,12 +57,10 @@ class dataManager:
             verified = False
 
         try:
-            float(self.dt)
-            float(self.df)
-            float(self.ti)
-            float(self.tf)
+            #float(self.ti)
             float(self.fi)
             float(self.ff)
+            int(self.N)
         except:
             verified = False
 
@@ -158,8 +154,8 @@ if __name__ == "__main__":
 
         pInd += 1
 
-    data = dataManager(params['sensor'], params['mode'], params['dt'], params['df'], params['ti'], params['tf'], params['fi'], params['ff'])
-    print("SENSOR: " + data.sensor, "MODE: " + data.mode, "dt: " + str(data.dt), "df: " + str(data.df), "ti: " + str(data.ti), "tf: "+ str(data.tf), "fi: "+ str(data.fi), "ff: "+ str(data.ff))
+    data = dataManager(params['sensor'], params['mode'], params['ti'], params['n'], params['fi'], params['ff'])
+    print("SENSOR: " + data.sensor, "MODE: " + data.mode, "ti: " + str(data.ti), "N: "+ str(data.N), "fi: "+ str(data.fi), "ff: "+ str(data.ff))
 
     if (data.verify_parameters() == False):
         exit()
