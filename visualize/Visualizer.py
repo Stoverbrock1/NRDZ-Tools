@@ -91,7 +91,7 @@ class dataManager:
             if directory.isnumeric():
                 for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
                     if (file != "outputs"):
-                        yearInd = file.index('D20') + 2
+                        yearInd = file.index('D20')
                         if (file[yearInd + 5: yearInd+9] == date_i ):
                             indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60.
                             tuples = tuples + [(indTime, float(directory))]
