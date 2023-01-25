@@ -108,7 +108,7 @@ class dataManager:
         #print(sortT)
         #print("function was called")
         #print(sortF)
-        return [[sortT], [sortF]]
+        return [sortT, sortF]
 
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
