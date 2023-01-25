@@ -96,8 +96,9 @@ class dataManager:
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
                 dirInd += 1
-                print(dirInd)
-                print(dirInd % numDir)
+                #print(dirInd)
+                #print(dirInd % numDir)
+                print(directory)
                 if ((dirInd % numDir) == 0):
                     sweepInd += 1
                     print(sweepInd)
