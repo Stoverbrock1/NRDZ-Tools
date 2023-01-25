@@ -91,7 +91,7 @@ class dataManager:
         conv_time = float(time_i[0:2]) + float(time_i[2:4])/60.
 
         numDir = len(os.listdir(self.dataPath))
-        print(len(numDir))
+        print(numDir)
         dirInd = 0
         sweepInd = 1
         for directory in os.listdir(self.dataPath):
