@@ -98,6 +98,7 @@ class dataManager:
                 dirInd += 1
                 if ((dirInd % numDir) == 0):
                     sweepInd += 1
+                    print(sweepInd)
                 if (sweepInd <= self.N):
                     if ((int(directory) <= self.ff) and int(directory) >= self.fi):
                         for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
