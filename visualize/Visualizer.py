@@ -83,18 +83,29 @@ class dataManager:
 
     def generate_cadences(self, save=False):
         """ Returns sweep cadence data """
+
+        # Issue is this wouldn't work overnight, ie midnight
         tuples = []
         date_i = self.ti[:4]
         time_i = self.ti[5:]
+        conv_time = float(time_i[0:2]) + float(time_i[2:4])/60.
 
+        numDir = len(os.listdir(self.dataPath))
+        dirInd = 0
+        sweepInd = 1
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
-                for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
-                    if (file[-4:] == "sc16"):
-                        yearInd = file.index('D20')
-                        if (file[yearInd + 5: yearInd+9] == date_i ):
-                            indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60. + float(file[yearInd+14: yearInd + 16])/(60.*60)
-                            tuples = tuples + [(indTime, float(directory))]
+                dirInd += 1
+                if ((dirInd % numDir) == 0):
+                    sweepInd += 1
+                if (sweepInd <= self.N):
+                    if ((int(directory) <= self.ff) and int(directory) >= self.fi):
+                        for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
+                            if (file[-4:] == "sc16"):
+                                yearInd = file.index('D20')
+                                indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60. + float(file[yearInd+14: yearInd + 16])/(60.*60.)
+                                if ((file[yearInd + 5: yearInd+9] == date_i ) and (indTime >= conv_time)):
+                                    tuples = tuples + [(indTime, float(directory))]
 
         sortT = [x[0] for x in tuples]
         unsortT = [x[0] for x in tuples]
