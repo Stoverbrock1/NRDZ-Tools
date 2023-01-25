@@ -117,12 +117,13 @@ class dataManager:
         highF = max(sortF)
         indSweep = 0
         freqInd, cutInd = 0, 0
+        print(highF)
 
         for each in sortF:
             if (each == highF):
                 indSweep += 1
             if (indSweep == self.N):
-                cutInd = freqInd + 2
+                cutInd = freqInd + 3
             freqInd += 1
 
 
