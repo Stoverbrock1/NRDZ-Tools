@@ -105,8 +105,6 @@ class dataManager:
             eachind = unsortT.index(each)
             sortF += [unsortF[eachind]]
             unsortT[eachind] = np.nan
-        print(len(tuples))
-        print(len(sortT))
         #print(sortT)
         #print("function was called")
         #print(sortF)
@@ -115,6 +113,7 @@ class dataManager:
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
         times, freqs = self.generate_cadences(save)
+        print(times)
         plt.plot(times, freqs)
         plt.show()
         return 0
