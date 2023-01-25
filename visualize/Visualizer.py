@@ -122,7 +122,7 @@ class dataManager:
             if (each == highF):
                 indSweep += 1
             if (indSweep == self.N):
-                cutInd = freqInd
+                cutInd = freqInd + 1
             freqInd += 1
 
 
