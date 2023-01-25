@@ -91,12 +91,13 @@ class dataManager:
         conv_time = float(time_i[0:2]) + float(time_i[2:4])/60.
 
         numDir = len(os.listdir(self.dataPath))
-        print(numDir)
         dirInd = 0
         sweepInd = 1
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
                 dirInd += 1
+                print(dirInd)
+                print(dirInd % numDir)
                 if ((dirInd % numDir) == 0):
                     sweepInd += 1
                     print(sweepInd)
@@ -126,7 +127,7 @@ class dataManager:
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
         times, freqs = self.generate_cadences(save)
-        print(freqs)
+        #print(freqs)
         plt.plot(times, freqs)
         plt.show()
         return 0
