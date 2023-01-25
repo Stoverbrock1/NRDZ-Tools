@@ -90,10 +90,10 @@ class dataManager:
         for directory in os.listdir(self.dataPath):
             if directory.isnumeric():
                 for file in os.listdir(self.dataPath + directory + BRANCH_PATH):
-                    if (file != "outputs"):
+                    if (file[-4:] == "sc16"):
                         yearInd = file.index('D20')
                         if (file[yearInd + 5: yearInd+9] == date_i ):
-                            indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60.
+                            indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60. + float(file[yearInd+14: yearInd + 16])/(60.*60)
                             tuples = tuples + [(indTime, float(directory))]
 
         sortT = [x[0] for x in tuples]
