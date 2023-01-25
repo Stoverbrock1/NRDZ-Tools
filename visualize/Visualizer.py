@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
+import json
 
 ### User-defined parameters:
 
@@ -36,6 +37,26 @@ params = {"sensor":SENSOR, "mode":MODE, "fi":Fi, "ff":Ff, "ti":Ti, "n":N}
 flags = {"v":VISUALIZE, "w":WRITE_DATA}
 valid_sensors = ["chime", "gate", "rooftop", "north-1740", "west-740", "north"]
 valid_modes = ["stats", "power", "cadence"]
+
+
+
+
+def spectrogram(filepath, data_complex, nfft, sampling_rate, center_freq,
+               std_width=6):
+    plt.figure(figsize=(6, 4))
+    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft,
+                                     Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+    intensity = 10.0*np.ma.log10(spec)
+    vmin = intensity.mean() - std_width*intensity.std()
+    vmax = intensity.mean() + std_width*intensity.std()
+    im.set_clim(vmin=vmin, vmax=vmax)
+    plt.colorbar(label='PSD (dB/Hz)')
+    plt.ylabel("Frequency (Hz)", fontsize=13)
+    plt.xticks(fontsize=10)
+    plt.yticks(fontsize=10)
+    plt.xlabel("Time (s)", fontsize=13)
+
+    return 0
 
 
 
@@ -118,16 +139,19 @@ class dataManager:
         indSweep = 0
         freqInd, cutInd = 0, 0
         print(highF)
+        firstInd = 0
 
         for each in sortF:
             if (each == highF):
+                if (indSweep == 0):
+                    firstInd = freqInd
                 indSweep += 1
             if (indSweep == self.N):
                 cutInd = freqInd + 2
             freqInd += 1
 
 
-        return [sortT[:cutInd], sortF[:cutInd]]
+        return [sortT[firstInd:cutInd], sortF[firstInd:cutInd]]
 
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
