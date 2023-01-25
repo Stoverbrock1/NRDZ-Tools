@@ -114,7 +114,19 @@ class dataManager:
         #print(sortT)
         #print("function was called")
         #print(sortF)
-        return [sortT, sortF]
+        highF = max(sortF)
+        indSweep = 0
+        freqInd, cutInd = 0, 0
+
+        for each in sortF:
+            if (each == highF):
+                indSweep += 1
+            if (indSweep == self.N):
+                cutInd = freqInd
+            freqInd += 1
+
+
+        return [sortT[:cutInd], sortF[:cutInd]]
 
     def plot_cadences(self, save=False):
         """ Plots frequency sweep vs time """
