@@ -45,7 +45,7 @@ class dataManager:
         self.sensor = sensor
         self.mode = mode
         self.ti = ti
-        self.N = n
+        self.N = int(n)
         self.fi = fi
         self.ff = ff
         self.dataPath = BASE_PATH + SENSOR_PATH[sensor.upper()]
