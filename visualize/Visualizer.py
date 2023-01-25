@@ -136,6 +136,7 @@ class dataManager:
         #print("function was called")
         #print(sortF)
         highF = max(sortF)
+        lowF = min(sortF)
         indSweep = 0
         freqInd, cutInd = 0, 0
         print(highF)
@@ -143,9 +144,9 @@ class dataManager:
 
         for each in sortF:
             if (each == highF):
-                if (indSweep == 0):
-                    firstInd = freqInd
                 indSweep += 1
+            if ((each == lowF) and (indSweep == 1)):
+                firstInd = freqInd
             if (indSweep == self.N):
                 cutInd = freqInd + 2
             freqInd += 1
