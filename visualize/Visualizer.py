@@ -46,8 +46,8 @@ class dataManager:
         self.mode = mode
         self.ti = ti
         self.N = int(n)
-        self.fi = fi
-        self.ff = ff
+        self.fi = int(fi)
+        self.ff = int(ff)
         self.dataPath = BASE_PATH + SENSOR_PATH[sensor.upper()]
 
     def verify_parameters(self):
