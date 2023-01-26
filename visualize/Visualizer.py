@@ -132,11 +132,11 @@ class dataManager:
                 datsc = [x for x in datList if 'sc16' in x][0]
                 datjs = [x for x in datList if 'json' in x][0]
 
-                data = np.fromfile(datsc, np.int16)
+                data = np.fromfile(self.dataPath + indFreq + BRANCH_PATH + datsc, np.int16)
                 data_normalized = data/32768
                 data_complex = data_normalized[0::2] + 1j*data_normalized[1::2]
 
-                with open(datjs, 'r') as f:
+                with open(self.dataPath + indFreq + BRANCH_PATH + datjs, 'r') as f:
                     header = json.load(f)
 
                 sampling_rate = header['sampling_rate']
