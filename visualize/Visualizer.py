@@ -130,6 +130,7 @@ class dataManager:
                 indTime, indFreq = timeStrings[plotInd], freqStrings[plotInd]
 
                 datList = [file for file in os.listdir(self.dataPath + indFreq + BRANCH_PATH) if indTime in file]
+                print(datList)
                 datsc = [x for x in datList if 'sc16' in x][0]
                 datjs = [x for x in datList if 'json' in x][0]
 
