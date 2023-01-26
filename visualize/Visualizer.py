@@ -111,6 +111,7 @@ class dataManager:
             minutes = (indTime - int(indTime))*60
             reconvSec = str(int(minutes)).zfill(2)
             sec = (minutes - int(minutes))*60
+            print(sec)
             reconvThird = str(int(sec)).zfill(2)
             timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
 
