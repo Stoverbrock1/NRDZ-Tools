@@ -151,6 +151,7 @@ class dataManager:
 
 
                 plotInd += 1
+        plt.show()
 
         return 0
 
