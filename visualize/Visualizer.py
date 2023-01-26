@@ -123,11 +123,31 @@ class dataManager:
 
 
         fig, axs = plt.subplots(self.N, rowN, sharex=True, sharey=True) ### Update this
+        plotInd = 0
         for col in range(self.N):
-          for row in range(rowN):
-              x = 1
-            #axs[col, row].plot(x, y)
+            for row in range(rowN):
+                indTime, indFreq = timeStrings[plotInd], freqStrings[plotInd]
 
+                datList = [file for file in os.listdir(self.dataPath + indFreq + BRANCH_PATH) if indTime in file]
+                datsc = [x for x in datList if 'sc16' in x][0]
+                datjs = [x for x in datList if 'json' in x][0]
+
+                data = np.fromfile(datsc, np.int16)
+                data_normalized = data/32768
+                data_complex = data_normalized[0::2] + 1j*data_normalized[1::2]
+
+                with open(datjs, 'r') as f:
+                    header = json.load(f)
+
+                sampling_rate = header['sampling_rate']
+                center_freq = header['frequency']
+                nfft = 1024
+
+
+                axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
+
+
+                plotInd += 1
 
         return 0
 
