@@ -107,12 +107,14 @@ class dataManager:
 
         timeStrings = []
         for indTime in times:
-            reconvFirst = str(int(indTime)).zfill(2)
-            minutes = (indTime - int(indTime))*60
-            reconvSec = str(int(minutes)).zfill(2)
-            sec = (minutes - int(minutes))*60
-            print(sec)
-            reconvThird = str(int(round(sec, 0))).zfill(2)
+            totsecs = int(round(indTime*(60**2), 0))
+            hours = int(totsecs//3600)
+            minutes = (totsecs - hours*3600)//60
+            secs = (totsecs - hours*3600 - minutes*60)
+            reconvFirst = str(hours).zfill(2)
+            reconvSec = str(minutes).zfill(2)
+            print(secs)
+            reconvThird = str(secs).zfill(2)
             timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
 
 
