@@ -115,7 +115,7 @@ class dataManager:
             timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
 
 
-        freqStrings = [str(ind) for ind in freqs]
+        freqStrings = [str(int(ind)) for ind in freqs]
         print(timeStrings)
 
 
