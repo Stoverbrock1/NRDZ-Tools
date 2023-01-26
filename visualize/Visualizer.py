@@ -108,7 +108,7 @@ class dataManager:
         timeStrings = []
         for indTime in times:
             reconvFirst = str(int(indTime)).zfill(2)
-            minutes = (indTime - int(convTime))*60
+            minutes = (indTime - int(indTime))*60
             reconvSec = str(int(minutes)).zfill(2)
             sec = (minutes - int(minutes))*60
             reconvThird = str(int(sec)).zfill(2)
