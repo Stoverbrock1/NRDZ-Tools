@@ -100,6 +100,19 @@ class dataManager:
 
     def plot_spectrogram(self, save=False):
         """ Plots spectrogram """
+        times, freqs = self.generate_cadences()
+        
+
+        rowN = freqs.index(max(freqs)) + 1
+
+
+        fig, axs = plt.subplots(self.N, rowN, sharex=True, sharey=True) ### Update this
+        for col in range(self.N):
+          for row in range(rowN):
+
+            axs[col, row].plot(x, y)
+
+
         return 0
 
     def generate_cadences(self, save=False):
