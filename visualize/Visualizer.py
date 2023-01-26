@@ -126,6 +126,7 @@ class dataManager:
         plotInd = 0
         for col in range(self.N):
             for row in range(rowN):
+                print(plotInd)
                 indTime, indFreq = timeStrings[plotInd], freqStrings[plotInd]
 
                 datList = [file for file in os.listdir(self.dataPath + indFreq + BRANCH_PATH) if indTime in file]
