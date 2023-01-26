@@ -101,16 +101,32 @@ class dataManager:
     def plot_spectrogram(self, save=False):
         """ Plots spectrogram """
         times, freqs = self.generate_cadences()
-        
 
         rowN = freqs.index(max(freqs)) + 1
+        date_i = self.ti[:4]
+
+        timeStrings = []
+        for indTime in times:
+            reconvFirst = str(int(indTime)).zfill(2)
+            minutes = (indTime - int(convTime))*60
+            reconvSec = str(int(minutes)).zfill(2)
+            sec = (minutes - int(minutes))*60
+            reconvThird = str(int(sec)).zfill(2)
+            timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
+
+
+        freqStrings = [str(ind) for ind in freqs]
+        print(timeStrings)
+
+
+
 
 
         fig, axs = plt.subplots(self.N, rowN, sharex=True, sharey=True) ### Update this
         for col in range(self.N):
           for row in range(rowN):
 
-            axs[col, row].plot(x, y)
+            #axs[col, row].plot(x, y)
 
 
         return 0
