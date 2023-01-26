@@ -113,13 +113,12 @@ class dataManager:
             secs = (totsecs - hours*3600 - minutes*60)
             reconvFirst = str(hours).zfill(2)
             reconvSec = str(minutes).zfill(2)
-            print(secs)
             reconvThird = str(secs).zfill(2)
             timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
 
 
         freqStrings = [str(int(ind)) for ind in freqs]
-        print(timeStrings)
+        #print(timeStrings)
 
 
 
@@ -133,7 +132,6 @@ class dataManager:
                 indTime, indFreq = timeStrings[plotInd], freqStrings[plotInd]
 
                 datList = [file for file in os.listdir(self.dataPath + indFreq + BRANCH_PATH) if indTime in file]
-                print(datList)
                 datsc = [x for x in datList if 'sc16' in x][0]
                 datjs = [x for x in datList if 'json' in x][0]
 
@@ -196,7 +194,6 @@ class dataManager:
         lowF = min(sortF)
         indSweep = 0
         freqInd, cutInd = 0, 0
-        print(highF)
         firstInd = 0
 
         for each in sortF:
