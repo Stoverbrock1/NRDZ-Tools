@@ -125,7 +125,7 @@ class dataManager:
         fig, axs = plt.subplots(self.N, rowN, sharex=True, sharey=True) ### Update this
         for col in range(self.N):
           for row in range(rowN):
-
+              x = 1
             #axs[col, row].plot(x, y)
 
 
