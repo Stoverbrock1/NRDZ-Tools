@@ -144,7 +144,9 @@ class dataManager:
                 nfft = 1024
 
 
-                axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
+                #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
+
+                axs[col, row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
 
 
                 plotInd += 1
