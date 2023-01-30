@@ -146,8 +146,10 @@ class dataManager:
 
 
                 #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
-
-                axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                if (rowN == 1):
+                    axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                else:
+                    axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
 
 
                 plotInd += 1
