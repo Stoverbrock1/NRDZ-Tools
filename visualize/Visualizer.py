@@ -121,9 +121,6 @@ class dataManager:
         #print(timeStrings)
 
 
-
-
-
         fig, axs = plt.subplots(rowN, self.N, sharex=True, sharey='row') ### Update this
         axs = axs[::-1]
         plotInd = 0
@@ -154,6 +151,7 @@ class dataManager:
 
 
                 plotInd += 1
+        plt.tight_layout()
         plt.show()
 
         return 0
