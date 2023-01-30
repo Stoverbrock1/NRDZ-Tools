@@ -152,7 +152,7 @@ class dataManager:
                 vmin = intensity.mean() - std_width*intensity.std()
                 vmax = intensity.mean() + std_width*intensity.std()
                 im.set_clim(vmin=vmin, vmax=vmax)
-                plt.colorbar(label='PSD (dB/Hz)')
+                axs[row, col].colorbar(label='PSD (dB/Hz)')
 
                 plotInd += 1
         plt.tight_layout()
