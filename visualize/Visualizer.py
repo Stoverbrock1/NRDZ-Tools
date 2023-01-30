@@ -146,7 +146,7 @@ class dataManager:
 
 
                 #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
-
+                std_width=6
                 spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
                 intensity = 10.0*np.ma.log10(spec)
                 vmin = intensity.mean() - std_width*intensity.std()
