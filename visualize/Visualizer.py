@@ -123,6 +123,7 @@ class dataManager:
 
         fig, axs = plt.subplots(rowN, self.N, sharex=True, sharey='row') ### Update this
         axs = axs[::-1]
+        print(axs)
         plotInd = 0
         for col in range(self.N):
             for row in range(rowN):
