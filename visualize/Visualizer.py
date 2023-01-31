@@ -155,7 +155,7 @@ class dataManager:
 
 
                 plotInd += 1
-        plt.colorbar(label='PSD (dB/Hz)')
+        fig.colorbar(label='PSD (dB/Hz)')
         plt.tight_layout()
         plt.show()
 
