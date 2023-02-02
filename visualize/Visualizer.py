@@ -152,7 +152,7 @@ class dataManager:
                     axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
                 else:
                     spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    lt.colorbar(im)
+                    plt.colorbar(im)
 
 
                 plotInd += 1
