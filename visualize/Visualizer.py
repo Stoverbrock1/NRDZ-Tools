@@ -155,7 +155,7 @@ class dataManager:
 
 
                 plotInd += 1
-        plt.subplots_adjust(wspace=0.4, hspace=0.4)
+        plt.subplots_adjust(wspace=0.1, hspace=0.1)
         caxs = fig.add_axes([.92, 0.1, .03, .8])
         plt.colorbar(im, cax = caxs)
         #plt.tight_layout()
