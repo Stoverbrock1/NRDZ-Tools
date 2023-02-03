@@ -124,6 +124,7 @@ class dataManager:
         fig, axs = plt.subplots(rowN, self.N, sharex=True, sharey='row') ### Update this
         axs = axs[::-1]
         plotInd = 0
+        std_width = 6
         for col in range(self.N):
             for row in range(rowN):
                 print(plotInd)
@@ -147,13 +148,17 @@ class dataManager:
 
                 #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
                 if (rowN == 1):
-                    axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    spec, freqs, t, im = axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
                 elif (self.N == 1):
-                    axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    spec, freqs, t, im = axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
                 else:
                     spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
 
-
+                intensity = 10.0*np.ma.log10(spec)
+                vmin = intensity.mean() - std_width*intensity.std()
+                vmax = intensity.mean() + std_width*intensity.std()
+                im.set_clim(vmin=vmin, vmax=vmax)
+                
                 plotInd += 1
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
