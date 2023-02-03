@@ -167,7 +167,7 @@ class dataManager:
         caxs = fig.add_axes([.91, 0.1, .03, .8])
 
         plt.colorbar(im, cax = caxs)
-        #plt.tight_layout()
+        plt.tight_layout(pad=1)
         plt.show()
 
         return 0
