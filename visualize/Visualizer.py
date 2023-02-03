@@ -164,6 +164,7 @@ class dataManager:
 
                 plotInd += 1
 
+        labAx.yaxis.set_label_coords(-.2, 0)
         labAx.set_xlabel("Time [sec]")
         labAx.set_ylabel("Frequency [Hz]")
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
