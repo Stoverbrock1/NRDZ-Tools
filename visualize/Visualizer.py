@@ -162,6 +162,8 @@ class dataManager:
                 plotInd += 1
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
+        plt.xlabel("Time [sec]")
+        plt.ylabel("Frequency [Hz]")
         plt.colorbar(im, cax = caxs)
         #plt.tight_layout()
         plt.show()
