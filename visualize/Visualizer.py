@@ -163,11 +163,11 @@ class dataManager:
 
         plt.xlabel("Time [sec]")
         plt.ylabel("Frequency [Hz]")
-        plt.subplots_adjust(wspace=0.08, hspace=0.08)
+        plt.subplots_adjust(wspace=0.2, hspace=0.2)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
 
         plt.colorbar(im, cax = caxs)
-        plt.tight_layout(pad=1)
+        #plt.tight_layout(pad=1)
         plt.show()
 
         return 0
