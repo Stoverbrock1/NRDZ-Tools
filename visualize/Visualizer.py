@@ -149,10 +149,13 @@ class dataManager:
                 #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
                 if (rowN == 1):
                     spec, freqs, t, im = axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    labAx = axs[col]
                 elif (self.N == 1):
                     spec, freqs, t, im = axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    labAx = axs[row]
                 else:
                     spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    labAx = axs[row, col]
 
                 intensity = 10.0*np.ma.log10(spec)
                 vmin = intensity.mean() - std_width*intensity.std()
@@ -161,9 +164,9 @@ class dataManager:
 
                 plotInd += 1
 
-        plt.xlabel("Time [sec]")
-        plt.ylabel("Frequency [Hz]")
-        plt.subplots_adjust(wspace=0.08, hspace=0.08, left=0)
+        labAx.set_xlabel("Time [sec]")
+        labAx.set_ylabel("Frequency [Hz]")
+        plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
 
         plt.colorbar(im, cax = caxs)
