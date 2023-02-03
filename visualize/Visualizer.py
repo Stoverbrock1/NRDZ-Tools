@@ -154,13 +154,12 @@ class dataManager:
                 else:
                     spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
 
+                intensity = 10.0*np.ma.log10(spec)
+                vmin = intensity.mean() - std_width*intensity.std()
+                vmax = intensity.mean() + std_width*intensity.std()
+                im.set_clim(vmin=vmin, vmax=vmax)
 
                 plotInd += 1
-        intensity = 10.0*np.ma.log10(spec)
-        vmin = intensity.mean() - std_width*intensity.std()
-        vmax = intensity.mean() + std_width*intensity.std()
-        im.set_clim(vmin=vmin, vmax=vmax)
-        
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
         plt.colorbar(im, cax = caxs)
