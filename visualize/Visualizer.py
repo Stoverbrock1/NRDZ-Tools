@@ -164,10 +164,12 @@ class dataManager:
 
                 plotInd += 1
 
-        labAx.yaxis.set_label_coords(-.18, .5)
-        labAx.xaxis.set_label_coords(1, -.18)
-        labAx.set_xlabel("Time [sec]")
-        labAx.set_ylabel("Frequency [Hz]")
+        #labAx.yaxis.set_label_coords(-.18, .5)
+        #labAx.xaxis.set_label_coords(1, -.18)
+        #labAx.set_xlabel("Time [sec]")
+        #labAx.set_ylabel("Frequency [Hz]")
+        fig.supxlabel("Time [sec]")
+        fig.supylabel("Frequency [Hz]")
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
 
