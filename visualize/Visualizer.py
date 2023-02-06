@@ -173,7 +173,7 @@ class dataManager:
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
         caxs = fig.add_axes([.91, 0.1, .03, .8])
 
-        plt.colorbar(im, cax = caxs)
+        plt.colorbar(im, cax = caxs, label='PSD (dB/Hz)')
         #plt.tight_layout(pad=1)
         plt.show()
 
