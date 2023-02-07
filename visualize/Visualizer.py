@@ -125,6 +125,7 @@ class dataManager:
         axs = axs[::-1]
         plotInd = 0
         std_width = 6
+        globVmin, globVmax = np.inf, -np.inf
         for col in range(self.N):
             for row in range(rowN):
                 print(plotInd)
@@ -160,7 +161,9 @@ class dataManager:
                 intensity = 10.0*np.ma.log10(spec)
                 vmin = intensity.mean() - std_width*intensity.std()
                 vmax = intensity.mean() + std_width*intensity.std()
-                im.set_clim(vmin=vmin, vmax=vmax)
+                globVmin = min(globVmin, vmin)
+                globVmax = max(globVmax, vmax)
+
 
                 plotInd += 1
 
@@ -168,6 +171,7 @@ class dataManager:
         #labAx.xaxis.set_label_coords(1, -.18)
         #labAx.set_xlabel("Time [sec]")
         #labAx.set_ylabel("Frequency [Hz]")
+        im.set_clim(vmin=globVmin, vmax=globVmax)
         fig.supxlabel("Time [sec]")
         fig.supylabel("Frequency [Hz]")
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
