@@ -126,6 +126,7 @@ class dataManager:
         plotInd = 0
         std_width = 6
         globVmin, globVmax = np.inf, -np.inf
+        allIm = []
         for col in range(self.N):
             for row in range(rowN):
                 print(plotInd)
@@ -157,7 +158,7 @@ class dataManager:
                 else:
                     spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
                     labAx = axs[0, 0]
-
+                allIm += [im]
                 intensity = 10.0*np.ma.log10(spec)
                 vmin = intensity.mean() - std_width*intensity.std()
                 vmax = intensity.mean() + std_width*intensity.std()
@@ -171,7 +172,8 @@ class dataManager:
         #labAx.xaxis.set_label_coords(1, -.18)
         #labAx.set_xlabel("Time [sec]")
         #labAx.set_ylabel("Frequency [Hz]")
-        im.set_clim(vmin=globVmin, vmax=globVmax)
+        for im in allIm:
+            im.set_clim(vmin=globVmin, vmax=globVmax)
         fig.supxlabel("Time [sec]")
         fig.supylabel("Frequency [Hz]")
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
