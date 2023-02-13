@@ -150,13 +150,13 @@ class dataManager:
 
                 #axs[col, row].spectrogram('a', data_complex, nfft, sampling_rate, center_freq, std_width=6)
                 if (rowN == 1):
-                    spec, freqs, t, im = axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    spec, freqs, t, im = axs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,   cmap='viridis')
                     labAx = axs[0]
                 elif (self.N == 1):
-                    spec, freqs, t, im = axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    spec, freqs, t, im = axs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,   cmap='viridis')
                     labAx = axs[0]
                 else:
-                    spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    spec, freqs, t, im = axs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,   cmap='viridis')
                     labAx = axs[0, 0]
                 allIm += [im]
                 intensity = 10.0*np.ma.log10(spec)
