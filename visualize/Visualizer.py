@@ -241,6 +241,8 @@ class dataManager:
         times, freqs = self.generate_cadences(save)
         #print(freqs)
         plt.plot(times, freqs)
+        plt.xlabel("Time [hr]")
+        plt.ylabel("Center Frequency [MHz]")
         plt.show()
         return 0
 
