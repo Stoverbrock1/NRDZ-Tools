@@ -17,7 +17,7 @@ MODE = 'stats' # --mode=...
 
 Fi = 0# In MHz; --fi=...
 Ff = 2000 # In MHz; --ff=...
-Ti = '0901T1203' # Must use this format - date followed by time separated by T; --ti=...
+Ti = '20200901T1203' # Must use this format - date followed by time separated by T; --ti=...
 N = 10 # An integer, number of sweeps/pulses you want plotted etc
 #Tf = '0901T1250' # --tf=...
 SENSOR = 'gate' # --sensor=...
@@ -103,7 +103,7 @@ class dataManager:
         times, freqs = self.generate_cadences()
 
         rowN = freqs.index(max(freqs)) + 1
-        date_i = self.ti[:4]
+        date_i = self.ti[:8]
 
         timeStrings = []
         for indTime in times:
@@ -190,8 +190,8 @@ class dataManager:
 
         # Issue is this wouldn't work overnight, ie midnight
         tuples = []
-        date_i = self.ti[:4]
-        time_i = self.ti[5:]
+        date_i = self.ti[:8]
+        time_i = self.ti[9:]
         conv_time = float(time_i[0:2]) + float(time_i[2:4])/60.
 
         numDir = len(os.listdir(self.dataPath))
