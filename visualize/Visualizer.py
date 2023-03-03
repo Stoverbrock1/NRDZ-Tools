@@ -282,6 +282,7 @@ class dataManager:
 
 
         fig, axs = plt.subplots(rowN, self.N, sharex=True, sharey='row') ### Update this
+        sepFig = plt.figure()
         axs = axs[::-1]
         plotInd = 0
         std_width = 6
@@ -310,18 +311,18 @@ class dataManager:
 
 
                 if (rowN == 1):
-                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    #axs[col].close()
+                    spec, freqs, t, im = sepFig.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    sepFig.close()
                     axs[col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0]
                 elif (self.N == 1):
-                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    #axs[row].close()
+                    spec, freqs, t, im = sepFig.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    sepFig.close()
                     axs[row].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0]
                 else:
-                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    #axs[row, col].close()
+                    spec, freqs, t, im = sepFig.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    sepFig.close()
                     axs[row, col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0, 0]
 
