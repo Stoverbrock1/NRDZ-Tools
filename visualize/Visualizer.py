@@ -36,7 +36,7 @@ BRANCH_PATH = '/20/10/1/'
 params = {"sensor":SENSOR, "mode":MODE, "fi":Fi, "ff":Ff, "ti":Ti, "n":N}
 flags = {"v":VISUALIZE, "w":WRITE_DATA}
 valid_sensors = ["chime", "gate", "rooftop", "north-1740", "west-740", "north"]
-valid_modes = ["stats", "power", "cadence"]
+valid_modes = ["stats", "power", "cadence", "hist"]
 
 
 
@@ -254,6 +254,89 @@ class dataManager:
         """ Plots means given this object's specified frequency/time bins """
         return 0
 
+    def generate_hist(self, save=False):
+        """ Returns histogram data """
+        return 0
+
+    def plot_hist(self, save=False):
+        """ Plots histograms in sweep format """
+        times, freqs = self.generate_cadences()
+
+        rowN = freqs.index(max(freqs)) + 1
+        date_i = self.ti[:8]
+
+        timeStrings = []
+        for indTime in times:
+            totsecs = int(round(indTime*(60**2), 0))
+            hours = int(totsecs//3600)
+            minutes = (totsecs - hours*3600)//60
+            secs = (totsecs - hours*3600 - minutes*60)
+            reconvFirst = str(hours).zfill(2)
+            reconvSec = str(minutes).zfill(2)
+            reconvThird = str(secs).zfill(2)
+            timeStrings = timeStrings + [date_i + 'T' + reconvFirst + reconvSec + reconvThird]
+
+
+        freqStrings = [str(int(ind)) for ind in freqs]
+        #print(timeStrings)
+
+
+        fig, axs = plt.subplots(rowN, self.N, sharex=True, sharey='row') ### Update this
+        axs = axs[::-1]
+        plotInd = 0
+        std_width = 6
+        globVmin, globVmax = np.inf, -np.inf
+        allIm = []
+        for col in range(self.N):
+            for row in range(rowN):
+                print(plotInd)
+                indTime, indFreq = timeStrings[plotInd], freqStrings[plotInd]
+
+                datList = [file for file in os.listdir(self.dataPath + indFreq + BRANCH_PATH) if indTime in file]
+                datsc = [x for x in datList if 'sc16' in x][0]
+                datjs = [x for x in datList if 'json' in x][0]
+
+                data = np.fromfile(self.dataPath + indFreq + BRANCH_PATH + datsc, np.int16)
+                data_normalized = data/32768
+                data_complex = data_normalized[0::2] + 1j*data_normalized[1::2]
+
+                with open(self.dataPath + indFreq + BRANCH_PATH + datjs, 'r') as f:
+                    header = json.load(f)
+
+                sampling_rate = header['sampling_rate']
+                center_freq = header['frequency']
+                nfft = 1024
+
+
+        
+                if (rowN == 1):
+                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    plt.close()
+                    axs[col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
+                    labAx = axs[0]
+                elif (self.N == 1):
+                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    plt.close()
+                    axs[row].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
+                    labAx = axs[0]
+                else:
+                    spec, freqs, t, im = plt.specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
+                    plt.close()
+                    axs[row, col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
+                    labAx = axs[0, 0]
+
+                plotInd += 1
+
+
+        fig.supxlabel("PSD (dB/Hz)")
+        fig.supylabel("Count")
+        plt.subplots_adjust(wspace=0.08, hspace=0.08)
+        caxs = fig.add_axes([.91, 0.1, .03, .8])
+
+        plt.show()
+
+        return 0
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -304,3 +387,9 @@ if __name__ == "__main__":
             data.generate_cadences(flags['w'])
         if (flags['v']):
             data.plot_cadences(flags['w'])
+
+    if (data.mode == 'hist'):
+        if (flags['w']):
+            data.generate_hist(flags['w'])
+        if (flags['v']):
+            data.plot_hist(flags['w'])
