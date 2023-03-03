@@ -331,8 +331,6 @@ class dataManager:
         fig.supxlabel("PSD (dB/Hz)")
         fig.supylabel("Count")
         plt.subplots_adjust(wspace=0.08, hspace=0.08)
-        caxs = fig.add_axes([.91, 0.1, .03, .8])
-
         plt.show()
 
         return 0
