@@ -203,7 +203,7 @@ class dataManager:
                         if (file[-4:] == "sc16"):
                             yearInd = file.index('D20')
                             indTime = float(file[yearInd + 10:yearInd+12]) + float(file[yearInd+12: yearInd + 14])/60. + float(file[yearInd+14: yearInd + 16])/(60.*60.)
-                            if ((file[yearInd + 5: yearInd+9] == date_i ) and (indTime >= conv_time)):
+                            if ((file[yearInd + 1: yearInd+9] == date_i ) and (indTime >= conv_time)):
                                 tuples = tuples + [(indTime, float(directory))]
 
         sortT = [x[0] for x in tuples]
