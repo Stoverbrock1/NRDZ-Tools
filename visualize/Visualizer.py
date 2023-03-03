@@ -312,17 +312,17 @@ class dataManager:
 
                 if (rowN == 1):
                     spec, freqs, t, im = sepAxs[col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    sepFig.close()
+                    plt.close(sepFig)
                     axs[col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0]
                 elif (self.N == 1):
                     spec, freqs, t, im = sepAxs[row].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    sepFig.close()
+                    plt.close(sepFig)
                     axs[row].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0]
                 else:
                     spec, freqs, t, im = sepAxs[row, col].specgram(data_complex, NFFT=nfft, Fs=sampling_rate, Fc=center_freq,  mode='psd', cmap='viridis')
-                    sepFig.close()
+                    plt.close(sepFig)
                     axs[row, col].hist(10.0*np.ma.log10(spec.flatten()), bins=50)
                     labAx = axs[0, 0]
 
